@@ -117,7 +117,6 @@ module.exports = {
         MeDao.get(userId).then(function(u){
             if(u){
                 u.socials = u.socials.filter(function(s){
-                    console.log(socialMe.type , s.type)
                     return socialMe.type !== s.type;
                 });
                 MeDao.update(u).then(function(){

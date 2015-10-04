@@ -2,6 +2,7 @@ var HttpHandler = require('./http-handler');
 var MeController = require('./controller/me');
 var SecretBoxController = require('./controller/secretbox');
 var DialogController = require('./controller/dialog');
+var ViadeoController = require('./controller/viadeo');
 
 module.exports = {
     init: function(app){
@@ -24,6 +25,9 @@ module.exports = {
 
             app.get(    '/dialogs/:type/:id',       HttpHandler.auth(DialogController.query));
             app.post(   '/dialogs',                 HttpHandler.auth(DialogController.create));
+
+            app.post(   '/proxy/viadeo-friends',    HttpHandler.unknown(ViadeoController.getFriends));
+            app.post(   '/proxy/viadeo-me',         HttpHandler.unknown(ViadeoController.getMe));
 
         });
 
