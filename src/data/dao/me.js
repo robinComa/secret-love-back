@@ -46,20 +46,21 @@ module.exports = {
         return deferred.promise;
     },
 
+    /**
+     * map :
+     *  function (doc) {
+	 *      emit(doc.email, doc);
+     *  }
+     * */
     findByEmail: function (email) {
         var deferred = Q.defer();
-        database.temporaryView({
-            map: function (doc) {
-                emit(doc.email, doc);
-            }
+        database.view('user/by_email', {
+            key: email || ''
         }, function (err, res) {
             if(err){
                 deferred.reject(err);
             }else{
-                var filterList = res.filter(function(item){
-                    return item.key === email;
-                });
-                deferred.resolve(filterList[0] ? filterList[0].value : null);
+                deferred.resolve(res[0] ? res[0].value : null);
             }
         });
         return deferred.promise;
