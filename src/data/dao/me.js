@@ -64,5 +64,44 @@ module.exports = {
             }
         });
         return deferred.promise;
+    },
+
+    getSocialIdByType : function(userId, type){
+        var deferred = Q.defer();
+        this.get(userId).then(function(user){
+            var socials = user.socials.filter(function(social){
+                return social.type === type;
+            });
+            if(socials.length > 0){
+                deferred.resolve(socials[0].id);
+            }else{
+                deferred.reject();
+            }
+        }, deferred.reject);
+        return deferred.promise;
+    },
+
+    /**
+     * map :
+     * function(doc) {
+     *  doc.socials.forEach(function(social){
+     *      emit([social.id, social.type], doc);
+     *  });
+     * }
+     * */
+    getUsersBySocial: function(id, type){
+        var deferred = Q.defer();
+        database.view('user/by_social', {
+            key: [id, type]
+        }, function (err, res) {
+            if(err){
+                deferred.reject(err);
+            }else{
+                deferred.resolve(res.map(function(item){
+                    return item.value;
+                }));
+            }
+        });
+        return deferred.promise;
     }
 };

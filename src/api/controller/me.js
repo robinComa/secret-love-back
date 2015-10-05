@@ -1,5 +1,6 @@
 var Q = require('q');
 var MeDao = require('../../data/dao/me');
+var SecretBoxDao = require('../../data/dao/secretbox');
 var mailService = require('../../service/mail');
 var passwordService = require('../../service/password');
 var Session = require('../session');
@@ -136,6 +137,7 @@ module.exports = {
                 u.socials.push(socialMe);
                 MeDao.update(u).then(function(){
                     deferred.resolve();
+                    SecretBoxDao.informIamVerified(socialMe);
                 }, deferred.reject);
             }else{
                 deferred.reject({status: 404});

@@ -5,21 +5,6 @@ var MeDao = require('./me');
 
 var database = db.dialog;
 
-var getSocialIdByType = function(userId, type){
-    var deferred = Q.defer();
-    MeDao.get(userId).then(function(user){
-        var socials = user.socials.filter(function(social){
-            return social.type === type;
-        });
-        if(socials.length > 0){
-            deferred.resolve(socials[0].id);
-        }else{
-            deferred.reject();
-        }
-    }, deferred.reject);
-    return deferred.promise;
-};
-
 module.exports = {
     /**
      * map :
@@ -38,7 +23,7 @@ module.exports = {
      * */
     query: function(userId, type, id){
         var deferred = Q.defer();
-        getSocialIdByType(userId, type).then(function(mySocialId){
+        MeDao.getSocialIdByType(userId, type).then(function(mySocialId){
             database.view('dialogs/by_user', {
                 key: [mySocialId, id].sort()
             }, function (err, res) {
@@ -60,7 +45,7 @@ module.exports = {
     },
     create: function (userId, dialog) {
         var deferred = Q.defer();
-        getSocialIdByType(userId, dialog.to.type).then(function(mySocialId){
+        MeDao.getSocialIdByType(userId, dialog.to.type).then(function(mySocialId){
             var me = {
                 id: mySocialId,
                 type: dialog.to.type
