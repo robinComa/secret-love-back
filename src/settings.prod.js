@@ -1,6 +1,6 @@
 const settings = {
     server: {
-        port: 3000,
+        port: 8081,
         cors: {
             origin: 'http://localhost:9000',
             credentials: true
