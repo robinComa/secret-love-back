@@ -2,7 +2,7 @@ const settings = {
     server: {
         port: 8081,
         cors: {
-            origin: 'http://robincoma.github.io',
+            origin: 'http://robincoma.github.io,localhost:9000',
             credentials: true
         }
     },
