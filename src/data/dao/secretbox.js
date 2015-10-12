@@ -87,9 +87,9 @@ module.exports = {
     create: function (userId, secret) {
         var deferred = Q.defer();
         meDao.get(userId).then(function(doc){
-            deferred.resolve(doc);
             secret = createSecretFromDto(secret);
             updateSecretStatus(doc, secret).then(function(updatedSecret){
+                deferred.resolve(updatedSecret);
                 doc.secretbox.push(updatedSecret);
                 database.save(userId, doc, function(err, response){
                     if(err){
