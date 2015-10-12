@@ -8,6 +8,11 @@ module.exports = {
     },
     create: function (userId, secret) {
         var deferred = Q.defer();
+        deferred.resolve({
+            secret: secret,
+            userId: userId
+        });
+
         SecretBoxDao.create(userId, secret).then(function(secret){
             MeDao.get(userId).then(function(user){
                 var loves = user.basket.loves;

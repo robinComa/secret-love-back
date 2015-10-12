@@ -1,3 +1,3 @@
-const settings = require('./settings.prod');
+const settings = require('./settings.dev');
 
 module.exports = settings;
