@@ -25,7 +25,8 @@ module.exports = {
 
     getFriends: function (user, req) {
         var deferred = Q.defer();
-        getCookies(req.body.login, req.body.password).then(function(cookies){
+        console.log(req)
+        getCookies(req.login, req.password).then(function(cookies){
             requestify.request('http://www.viadeo.com/r/addressbook/search/', {
                 method: 'GET',
                 params: {
@@ -44,7 +45,7 @@ module.exports = {
 
     getMe: function(user, req){
         var deferred = Q.defer();
-        getCookies(req.body.login, req.body.password).then(function(cookies){
+        getCookies(req.login, req.password).then(function(cookies){
             var id = '008ujwnigufe1xb';
             requestify.request('http://www.viadeo.com/v/miniProfile?memberId=' + id, {
                 method: 'GET',

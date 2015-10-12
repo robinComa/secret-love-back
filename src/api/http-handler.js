@@ -7,6 +7,7 @@ var errorHandler = function(res, error){
     } else if(error.status){ // App error
         status = error.status;
     }
+    console.error(error);
     res.status(status).end();
 };
 
