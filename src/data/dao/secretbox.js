@@ -24,8 +24,8 @@ var updateSecretStatus = function(user, secret){
             secret.friend.verified = true;
             secret.friend.hasNews = true;
             secret.friend.lastUpdate = new Date().getTime();
-            for(var i in otherUser.secretbox){
-                if(otherUser.secretbox[i].friend.id === secret.friend.id && otherUser[i].friend.type === secret.friend.type){
+            for(var i in otherUser.secretBox){
+                if(otherUser.secretBox[i].friend.id === secret.friend.id && otherUser[i].friend.type === secret.friend.type){
                     secret.inLove = true;
                     otherUser[i].friend.hasNews = true;
                     otherUser[i].friend.lastUpdate = new Date().getTime();
@@ -43,7 +43,7 @@ var updateSecretStatus = function(user, secret){
 /**
  * map :
  * function(doc) {
- *  doc.secretbox.forEach(function(secret){
+ *  doc.secretBox.forEach(function(secret){
  * 		emit([secret.friend.id, secret.friend.type], doc);
  *	});
  * }
@@ -59,8 +59,8 @@ var informIamVerified = function(socialMe){
             var subPromises = [];
             res.forEach(function(item){
                 var user = item.value;
-                for(var i in user.secretbox){
-                    var otherSecret = user.secretbox[i];
+                for(var i in user.secretBox){
+                    var otherSecret = user.secretBox[i];
                     if(otherSecret.id === socialMe.id && otherSecret.type === socialMe.type){
                         otherSecret.friend.hasNews = true;
                         otherSecret.friend.lastUpdate = new Date().getTime();
@@ -80,7 +80,7 @@ module.exports = {
     query: function(userId){
         var deferred = Q.defer();
         meDao.get(userId).then(function(doc){
-            deferred.resolve(doc.secretbox || []);
+            deferred.resolve(doc.secretBox || []);
         }).catch(deferred.reject);
         return deferred.promise;
     },
@@ -89,8 +89,7 @@ module.exports = {
         meDao.get(userId).then(function(doc){
             secret = createSecretFromDto(secret);
             updateSecretStatus(doc, secret).then(function(updatedSecret){
-                deferred.resolve(doc.secretbox);
-                doc.secretbox.push(updatedSecret);
+                doc.secretBox.push(updatedSecret);
                 database.save(userId, doc, function(err, response){
                     if(err){
                         deferred.reject(err);
@@ -105,10 +104,10 @@ module.exports = {
     delete: function (userId, type, id) {
         var deferred = Q.defer();
         meDao.get(userId).then(function(doc){
-            if(!doc.secretbox){
+            if(!doc.secretBox){
                 deferred.reject();
             }
-            doc.secretbox = doc.secretbox.filter(function(secret){
+            doc.secretBox = doc.secretBox.filter(function(secret){
                 return secret.friend.id !== id || secret.friend.type !== type;
             });
             database.save(userId, doc, function(err, response){
