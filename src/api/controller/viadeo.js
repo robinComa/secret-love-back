@@ -25,7 +25,6 @@ module.exports = {
 
     getFriends: function (user, req) {
         var deferred = Q.defer();
-        console.log(req)
         getCookies(req.login, req.password).then(function(cookies){
             requestify.request('http://www.viadeo.com/r/addressbook/search/', {
                 method: 'GET',
