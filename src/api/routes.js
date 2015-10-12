@@ -26,8 +26,8 @@ module.exports = {
             app.get(    '/dialogs/:type/:id',       HttpHandler.auth(DialogController.query));
             app.post(   '/dialogs',                 HttpHandler.auth(DialogController.create));
 
-            app.post(   '/proxy/viadeo-friends',    HttpHandler.unknown(ViadeoController.getFriends));
-            app.post(   '/proxy/viadeo-me',         HttpHandler.unknown(ViadeoController.getMe));
+            app.post(   '/proxy/viadeo-friends',    HttpHandler.auth(ViadeoController.getFriends));
+            app.post(   '/proxy/viadeo-me',         HttpHandler.auth(ViadeoController.getMe));
 
         });
 
