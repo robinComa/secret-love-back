@@ -9,10 +9,6 @@ module.exports = {
     create: function (userId, secret) {
         var deferred = Q.defer();
         SecretBoxDao.create(userId, secret).then(function(secret){
-            deferred.resolve({
-                secret: secret,
-                userId: userId
-            });
             MeDao.get(userId).then(function(user){
                 var loves = user.basket.loves;
                 if(loves > 0){
