@@ -89,8 +89,11 @@ module.exports = {
         meDao.get(userId).then(function(doc){
             secret = createSecretFromDto(secret);
             updateSecretStatus(doc, secret).then(function(updatedSecret){
-                deferred.resolve(updatedSecret);
                 doc.secretbox.push(updatedSecret);
+                deferred.resolve({
+                    doc: doc,
+                    res: doc.secretbox
+                });
                 database.save(userId, doc, function(err, response){
                     if(err){
                         deferred.reject(err);
