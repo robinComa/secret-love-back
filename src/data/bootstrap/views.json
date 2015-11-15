@@ -1,0 +1,15 @@
+{
+  "user/by_email": {
+    "map": "user/by_email/map.js"
+  },
+  "user/by_social": {
+    "map": "user/by_social/map.js"
+  },
+  "secretbox/loves": {
+    "map": "secretbox/loves/map.js"
+  },
+  "dialogs/by_user": {
+    "map": "dialogs/by_user/map.js",
+    "reduce": "dialogs/by_user/reduce.js"
+  }
+}

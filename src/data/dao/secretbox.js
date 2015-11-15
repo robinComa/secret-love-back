@@ -40,14 +40,7 @@ var updateSecretStatus = function(user, secret){
     }, deferred.reject);
     return deferred.promise;
 };
-/**
- * map :
- * function(doc) {
- *  doc.secretBox.forEach(function(secret){
- * 		emit([secret.friend.id, secret.friend.type], doc);
- *	});
- * }
- * */
+
 var informIamVerified = function(socialMe){
     var deferred = Q.defer();
     database.view('secretbox/loves', {

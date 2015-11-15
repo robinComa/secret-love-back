@@ -1,6 +1,5 @@
 var Q = require('q');
 var db = require('../db');
-var settings = require('../../settings');
 var passwordService = require('../../service/password');
 
 var database = db.user;
@@ -46,12 +45,6 @@ module.exports = {
         return deferred.promise;
     },
 
-    /**
-     * map :
-     *  function (doc) {
-	 *      emit(doc.email, doc);
-     *  }
-     * */
     findByEmail: function (email) {
         var deferred = Q.defer();
         database.view('user/by_email', {
@@ -81,14 +74,6 @@ module.exports = {
         return deferred.promise;
     },
 
-    /**
-     * map :
-     * function(doc) {
-     *  doc.socials.forEach(function(social){
-     *      emit([social.id, social.type], doc);
-     *  });
-     * }
-     * */
     getUsersBySocial: function(id, type){
         var deferred = Q.defer();
         database.view('user/by_social', {

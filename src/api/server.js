@@ -3,7 +3,6 @@ var bodyParser = require('body-parser');
 var namespace = require('express-namespace');
 var clientSession = require('client-sessions');
 var cors = require('cors');
-var settings = require('../settings');
 
 var app = express();
 

@@ -6,21 +6,6 @@ var MeDao = require('./me');
 var database = db.dialog;
 
 module.exports = {
-    /**
-     * map :
-     *  function (doc) {
-	 *      var who = [doc.who.id, doc.to.id].sort();
-	 *      emit(who, {
-	 *          who: doc.who.id,
-	 *          when: doc.when,
-	 *          what: doc.what
-	 *      });
-     *  }
-     * reduce :
-     *  function(key, values, rereduce){
-	 *      return values;
-     *  }
-     * */
     query: function(userId, type, id){
         var deferred = Q.defer();
         MeDao.getSocialIdByType(userId, type).then(function(mySocialId){

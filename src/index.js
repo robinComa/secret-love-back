@@ -1,4 +1,10 @@
-var server = require('./api/server')
-var routes = require('./api/routes');
+global.settings = global.settings || require('./settings.json');
 
-routes.init(server);
+var bootstrap = require('./data/bootstrap/index');
+
+bootstrap.then(function(){
+  var server = require('./api/server');
+  var routes = require('./api/routes');
+
+  routes.init(server);
+});

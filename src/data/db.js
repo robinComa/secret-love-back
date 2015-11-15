@@ -1,5 +1,4 @@
 var cradle = require('cradle');
-var settings = require('../settings');
 
 var connection = new(cradle.Connection)(settings.database.domain, settings.database.port, {
     auth: settings.database.auth
@@ -10,7 +9,7 @@ var getDatabase = function(name){
 
     db.exists(function (err, exists) {
         if (err) {
-            console.log('error', err);
+            console.error('Fail to connect the database %s" : \n', name, err);
         } else if (exists) {
             console.info('Database %s connection ok.', name);
         } else {

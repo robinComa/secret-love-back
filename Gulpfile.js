@@ -6,9 +6,9 @@ var gulp = require('gulp'),
  * $ gulp serve:prod
  * description: launch the server. If there's a server already running, kill it.
  */
-gulp.task('serve:prod', function() {
+gulp.task('server', function() {
     if (node) node.kill()
-    node = spawn('node', ['src/index.js'], {stdio: 'inherit'})
+    node = spawn('node', ['src/dev.index.js'], {stdio: 'inherit'})
     node.on('close', function (code) {
         if (code === 8) {
             console.log('Error detected, waiting for changes...');
@@ -20,11 +20,11 @@ gulp.task('serve:prod', function() {
  * $ gulp serve:dev
  * description: start the development environment
  */
-gulp.task('serve:dev', function() {
-    gulp.run('serve:prod');
+gulp.task('serve', function() {
+    gulp.run('server');
 
     gulp.watch(['src/**/*'], function() {
-        gulp.run('serve:prod');
+        gulp.run('server');
     });
 });
 
