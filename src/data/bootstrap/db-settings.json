@@ -1,0 +1,30 @@
+{
+  "user": {
+    "views": {
+      "user": {
+        "by_email": {
+          "map": "src/data/bootstrap/user/by_email/map.js"
+        },
+        "by_social": {
+          "map": "src/data/bootstrap/user/by_social/map.js"
+        }
+      },
+      "secretbox": {
+        "loves": {
+          "map": "src/data/bootstrap/secretbox/loves/map.js"
+        }
+      }
+
+    }
+  },
+  "dialog": {
+    "views": {
+      "dialogs": {
+        "by_user": {
+          "map": "src/data/bootstrap/dialogs/by_user/map.js",
+          "reduce": "src/data/bootstrap/dialogs/by_user/reduce.js"
+        }
+      }
+    }
+  }
+}
