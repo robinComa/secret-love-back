@@ -49,10 +49,12 @@ var createDatabase = function(alias, config){
         LOGGER.info('Database %s already exist.', databaseName);
         createDesign(db, config.views).then(deferred.resolve, deferred.reject);
     } else {
-        LOGGER.error('Database %s does not exists.', databaseName);
-        db.create(function(){
-          LOGGER.error('Database %s was created.', databaseName);
-          createDesign(db, config.views).then(deferred.resolve, deferred.reject);
+        LOGGER.info('Database %s does not exists.', databaseName);
+        db.create(function(db){
+          createDesign(db, config.views).then(function(){
+            LOGGER.info('Database %s was created.', databaseName);
+            deferred.resolve();
+          }, deferred.reject);
         }, deferred.reject);
     }
   });
