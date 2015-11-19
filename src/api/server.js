@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
 var server = app.listen(settings.server.port, function () {
     var host = server.address().address;
     var port = server.address().port;
-    console.log("Secret Love API listening at http://%s:%s", host, port);
+    LOGGER.info("Secret Love API listening at http://%s:%s", host, port);
 });
 
 module.exports = app;

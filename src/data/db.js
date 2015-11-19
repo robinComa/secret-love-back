@@ -9,11 +9,11 @@ var getDatabase = function(name){
 
     db.exists(function (err, exists) {
         if (err) {
-            console.error('Fail to connect the database %s" : \n', name, err);
+            LOGGER.error('Fail to connect the database %s" : \n', name, err);
         } else if (exists) {
-            console.info('Database %s connection ok.', name);
+            LOGGER.info('Database %s connection ok.', name);
         } else {
-            console.error('Database %s does not exists.', name);
+            LOGGER.error('Database %s does not exists.', name);
         }
     });
     return db;

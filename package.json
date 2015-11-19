@@ -16,7 +16,8 @@
     "bcrypt-nodejs": "0.0.3",
     "password-generator": "1.0.1",
     "q": "1.4.1",
-    "requestify": "0.1.17"
+    "requestify": "0.1.17",
+    "winston": "2.1.1"
   },
   "engines": {
     "node": ">=0.8.0"

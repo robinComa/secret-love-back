@@ -20,7 +20,7 @@ var createViews = function(db, alias, views){
       deferred.reject();
     }else{
       for(var name in views){
-        console.info('View %s was created into %s database.', name, databaseAlias);
+        LOGGER.info('View %s was created into %s database.', name, databaseAlias);
       }
       deferred.resolve();
     }
@@ -43,15 +43,15 @@ var createDatabase = function(alias, config){
 
   db.exists(function (err, exists) {
     if (err) {
-        console.error('Fail to connect the database %s" : \n', databaseName, err);
+        LOGGER.error('Fail to connect the database %s" : \n', databaseName, err);
         deferred.reject();
     } else if (exists) {
-        console.info('Database %s already exist.', databaseName);
+        LOGGER.info('Database %s already exist.', databaseName);
         createDesign(db, config.views).then(deferred.resolve, deferred.reject);
     } else {
-        console.error('Database %s does not exists.', databaseName);
+        LOGGER.error('Database %s does not exists.', databaseName);
         db.create(function(){
-          console.error('Database %s was created.', databaseName);
+          LOGGER.error('Database %s was created.', databaseName);
           createDesign(db, config.views).then(deferred.resolve, deferred.reject);
         }, deferred.reject);
     }
