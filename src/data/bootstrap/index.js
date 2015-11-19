@@ -17,7 +17,7 @@ var createViews = function(db, alias, views){
   }
   db.save('_design/' + alias, views, function(err){
     if(err){
-      deferred.reject();
+      deferred.reject(err);
     }else{
       for(var name in views){
         LOGGER.info('View %s was created into %s database.', name, databaseAlias);
@@ -44,7 +44,7 @@ var createDatabase = function(alias, config){
   db.exists(function (err, exists) {
     if (err) {
         LOGGER.error('Fail to connect the database %s" : \n', databaseName, err);
-        deferred.reject();
+        deferred.reject(err);
     } else if (exists) {
         LOGGER.info('Database %s already exist.', databaseName);
         createDesign(db, config.views).then(deferred.resolve, deferred.reject);
